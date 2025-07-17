@@ -16,11 +16,11 @@ public class DrinkService {
     @Autowired
     private DrinkRepo drinkRepo;
 
-    public void saveElement(Drink newDrink) {
-        if (newDrink.getName().length() < 2)
+    public void saveDrink(Drink newDrink) {
+        if (newDrink.getName() == null || newDrink.getName().length() < 2)
             throw new ValidationException("il nome inserito non può essere formato da meno di due caratteri");
         drinkRepo.save(newDrink);
-        log.info("La pizza del menu : " + newDrink.getName() + " è stato salvato correttamente!");
+        log.info("Il drink del menu : " + newDrink.getName() + " è stato salvato correttamente!");
     }
 
     public List<Drink> findAll() {
@@ -40,12 +40,22 @@ public class DrinkService {
 
         drinkRepo.save(found);
 
-        log.info("La pizza con id: " + drinkId + " è stato modificato correttamente!");
+        log.info("Il drink con id: " + drinkId + " è stato modificato correttamente!");
     }
 
     public void findByIdAndDelete(long drinkId) {
         Drink found = this.findById(drinkId);
         drinkRepo.delete(found);
-        log.info("La pizza con id: " + drinkId + " è stato cancellato correttamente!");
+        log.info("Il drink con id: " + drinkId + " è stato cancellato correttamente!");
+    }
+
+    public void saveAll(List<Drink> newDrink) {
+        for (Drink drink : newDrink) {
+            try {
+                this.saveDrink(drink);
+            } catch (ValidationException ex) {
+                log.error(ex.getMessage());
+            }
+        }
     }
 }

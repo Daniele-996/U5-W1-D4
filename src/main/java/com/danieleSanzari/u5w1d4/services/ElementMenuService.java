@@ -17,7 +17,7 @@ public class ElementMenuService {
     private ElementMenuRepo elementMenuRepo;
 
     public void saveElement(ElementMenu newElement) {
-        if (newElement.getName().length() < 2)
+        if (newElement.getName() == null || newElement.getName().length() < 2)
             throw new ValidationException("il nome inserito non può essere formato da meno di due caratteri");
         elementMenuRepo.save(newElement);
         log.info("L'elemento del menu : " + newElement.getName() + " è stato salvato correttamente!");
@@ -47,5 +47,15 @@ public class ElementMenuService {
         ElementMenu found = this.findById(elementId);
         elementMenuRepo.delete(found);
         log.info("L'elemento con id: " + elementId + " è stato cancellato correttamente!");
+    }
+
+    public void saveAll(List<ElementMenu> newElement) {
+        for (ElementMenu element : newElement) {
+            try {
+                this.saveElement(element);
+            } catch (ValidationException ex) {
+                log.error(ex.getMessage());
+            }
+        }
     }
 }

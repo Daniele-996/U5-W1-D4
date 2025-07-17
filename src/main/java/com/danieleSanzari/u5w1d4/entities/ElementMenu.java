@@ -12,10 +12,13 @@ import lombok.*;
 @NoArgsConstructor
 public abstract class ElementMenu {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Setter(AccessLevel.NONE)
     protected long id;
+    @Column(name = "names")
     protected String name;
+    @Column(name = "calories")
     protected int calories;
+    @Column(name = "prices")
     protected double price;
 }

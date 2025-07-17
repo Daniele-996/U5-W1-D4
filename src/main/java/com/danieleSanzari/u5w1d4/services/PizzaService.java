@@ -16,8 +16,8 @@ public class PizzaService {
     @Autowired
     private PizzaRepo pizzaRepo;
 
-    public void saveElement(Pizza newPizza) {
-        if (newPizza.getName().length() < 2)
+    public void savePizza(Pizza newPizza) {
+        if (newPizza.getName() == null || newPizza.getName().length() < 2)
             throw new ValidationException("il nome inserito non può essere formato da meno di due caratteri");
         pizzaRepo.save(newPizza);
         log.info("La pizza del menu : " + newPizza.getName() + " è stato salvato correttamente!");
@@ -48,4 +48,15 @@ public class PizzaService {
         pizzaRepo.delete(found);
         log.info("La pizza con id: " + pizzaId + " è stato cancellato correttamente!");
     }
+
+    public void saveAll(List<Pizza> newPizza) {
+        for (Pizza pizza : newPizza) {
+            try {
+                this.savePizza(pizza);
+            } catch (ValidationException ex) {
+                log.error(ex.getMessage());
+            }
+        }
+    }
+
 }
