@@ -5,7 +5,6 @@ import lombok.*;
 
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-@ToString
 @Getter
 @Setter
 @AllArgsConstructor
@@ -21,4 +20,14 @@ public abstract class ElementMenu {
     protected int calories;
     @Column(name = "prices")
     protected double price;
+
+    @Override
+    public String toString() {
+        return "ElementMenu{" +
+                "calories=" + calories +
+                ", id=" + id +
+                ", name='" + name + '\'' +
+                ", price=" + price +
+                '}';
+    }
 }

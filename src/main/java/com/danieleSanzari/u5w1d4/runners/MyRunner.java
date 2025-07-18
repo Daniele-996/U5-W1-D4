@@ -39,8 +39,8 @@ public class MyRunner implements CommandLineRunner {
             newTopping.setName(faker.food().ingredient());
             newTopping.setPrice(faker.number().randomDouble(2, 1, 5));
             newTopping.setCalories(faker.random().nextInt(50, 400));
-            toppingService.saveTopping(newTopping);
-            toppings.add(newTopping);
+            // toppingService.saveTopping(newTopping);
+            // toppings.add(newTopping);
         }
 
         List<Pizza> pizzas = new ArrayList<>();
@@ -50,8 +50,8 @@ public class MyRunner implements CommandLineRunner {
             newPizza.setPrice(faker.number().randomDouble(2, 5, 10));
             newPizza.setCalories(faker.random().nextInt(400, 1200));
             newPizza.setIngredients(faker.food().ingredient());
-            pizzaService.savePizza(newPizza);
-            pizzas.add(newPizza);
+            //  pizzaService.savePizza(newPizza);
+            // pizzas.add(newPizza);
         }
 
         List<Drink> drinks = new ArrayList<>();
@@ -60,9 +60,11 @@ public class MyRunner implements CommandLineRunner {
             newDrink.setName(faker.gameOfThrones().character());
             newDrink.setPrice(faker.number().randomDouble(2, 3, 7));
             newDrink.setCalories(faker.random().nextInt(200, 450));
-            drinkService.saveDrink(newDrink);
-            drinks.add(newDrink);
+            // drinkService.saveDrink(newDrink);
+            // drinks.add(newDrink);
         }
+        System.out.println("------------- FIND BY PARTIAL NAME --------------");
+        pizzaService.filterByNameStartsWith("G").forEach(System.out::println);
     }
 
 }

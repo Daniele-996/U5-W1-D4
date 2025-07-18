@@ -59,4 +59,8 @@ public class PizzaService {
         }
     }
 
+    public List<Pizza> filterByNameStartsWith(String partialName) {
+        return this.pizzaRepo.findByNameStartingWith(partialName);
+    }
+
 }
